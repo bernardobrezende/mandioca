@@ -1,0 +1,36 @@
+{
+  "name": "mandioca",
+  "version": "0.1.0",
+  "description": "A low-cerimony web-first Node.js HTTP framework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc -p tsconfig.json && node dist/appSample.js",
+    "start": "ts-node test/appSample.ts",
+    "dev": "npx tsnd --respawn test/appSample.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bernardobrezende/mandioca.git"
+  },
+  "keywords": [
+    "http",
+    "api",
+    "framework",
+    "node",
+    "express",
+    "microframework"
+  ],
+  "author": "Bernardo Bosak de Rezende",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bernardobrezende/mandioca/issues"
+  },
+  "homepage": "https://github.com/bernardobrezende/mandioca#readme",
+  "devDependencies": {
+    "@types/node": "^16.7.11",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.2"
+  },
+  "type": "module"
+}
