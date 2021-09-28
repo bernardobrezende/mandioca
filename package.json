@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc -p tsconfig.json && node dist/appSample.js",
-    "start": "ts-node test/appSample.ts",
-    "dev": "npx tsnd --respawn test/appSample.ts"
+    "build": "npx tsc -p tsconfig.json && node examples/appSample.js",
+    "start": "ts-node examples/appSample.ts",
+    "dev": "npx tsnd --respawn examples/appSample.ts"
   },
   "repository": {
     "type": "git",

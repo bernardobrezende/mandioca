@@ -7,7 +7,7 @@ mandioca
     console.log(`server running on ${ address }:${ port }`);
   });
 
-mandioca.get(`/hello`, (req: HttpRequest) => ({ foo: `bar1 ${ req.search['uid'] }` }));
+mandioca.get(`/hello`, (req: HttpRequest) => ({ foo: `bar11 ${ req.search['uid'] }` }));
 mandioca.get(`/hello2`, () => ({ foo: 'bar2' }));
 
 const posts = [];
