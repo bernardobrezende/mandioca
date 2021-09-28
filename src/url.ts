@@ -1,6 +1,9 @@
 export type SearchParams = { [key: string]: string };
 
-export function sanitizeUrl(url: string) : string {
-  const [ sanitizedUrl ] = url!.split(/\?/);
+export function removeQueryParams(url: string) : string {
+  if (!url) {
+    return url;
+  }
+  const [ sanitizedUrl ] = url.split(/\?/);
   return sanitizedUrl;
 }

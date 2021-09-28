@@ -4,7 +4,7 @@ import url from 'url';
 
 import { notFound, ok, HttpRequest, created } from './http';
 import { routeExists, routeHandler } from './router';
-import { SearchParams, sanitizeUrl } from './url';
+import { SearchParams, removeQueryParams } from './url';
 
 const createRequest = async (req: IncomingMessage) : Promise<HttpRequest> => {
   const search = url.parse(req.url!, true).query;
@@ -32,7 +32,7 @@ const readRequestBodyAsync = (req: IncomingMessage) : Promise<JSON> => {
 
 const requestListener = async (req: IncomingMessage, res: ServerResponse) => {
   const { url, socket, headers } = req;
-  const sanitizedUrl = sanitizeUrl(url!);
+  const sanitizedUrl = removeQueryParams(url!);
 
   if (routeExists(sanitizedUrl)) {
     const handler = routeHandler(sanitizedUrl);
