@@ -2,6 +2,8 @@
 
 A low-cerimony web-first Node.js HTTP framework.
 
+![min coverage badge](https://img.shields.io/nycrc/bernardobrezende/mandioca?style=flat-square)
+
 ```
 import mandioca from 'mandioca';
 
