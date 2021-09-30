@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx tsc -p tsconfig.json && c8 ava",
+    "coverage": "c8 report --check-coverage",
     "build": "npx tsc -p tsconfig.json && node examples/appSample.js",
     "start": "ts-node examples/appSample.ts",
     "dev": "npx tsnd --respawn examples/appSample.ts"
