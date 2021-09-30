@@ -10,7 +10,11 @@ export function routeExists(url: string) : boolean {
 }
 
 export function routeHandler(url : string) : RouteHandler {
-  return routers.get(url)!;
+  const handler = routers.get(url);
+  if (!handler) {
+    throw new Error(`route handler ${ url } was not found. you must call registerRoute before.`);
+  }
+  return handler;
 }
 
 export function registerRoute(url: string, handler: RouteHandler) {
