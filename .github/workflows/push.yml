@@ -21,5 +21,11 @@ jobs:
       - run: echo "🖥️ Node v16 setup up"
       - run: npm install
       - run: npm test
+      - run: npm run coverage
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
       - run: echo "✅ build done."
 
