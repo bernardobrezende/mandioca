@@ -1,4 +1,6 @@
 {
   "all": true,
-  "src": "dist/src"
+  "src": "dist/src",
+  "include": [ "dist/src/" ],
+  "exclude": [ "dist/test/", "*.ts" ]
 }

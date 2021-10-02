@@ -1,6 +1,9 @@
 import test from 'ava';
 
-import { initializeServer } from '../src/server';
+import { registerRoute } from '../src/router';
+
+import { createServer, initializeServer } from '../src/server';
+import { get } from './util/_simpleRequest';
 
 const createServerStub = (address: string, port: number) => ({
   address: () => ({ address, port }),
@@ -20,3 +23,14 @@ test('initializeServer with valid port resolves with valid address', async t => 
   t.is(address, 'localhost');
   t.is(9467, port);
 });
+
+test('createServer requestListener with get method', async t => {
+  const server = createServer();
+  registerRoute('/foo', () => ({ foo: 'bar' }));
+  await initializeServer(server, 7894);
+  const res = await get('http://localhost:7894/foo');
+  server.close();
+  t.is('{"foo":"bar"}', res);
+});
+
+
