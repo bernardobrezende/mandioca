@@ -1,4 +1,4 @@
-import http, { IncomingMessage, ServerResponse } from 'http';
+import http, { IncomingMessage, Server, ServerResponse } from 'http';
 import { AddressInfo } from 'net';
 import url from 'url';
 
@@ -48,9 +48,9 @@ const requestListener = async (req: IncomingMessage, res: ServerResponse) => {
   }
 }
 
-const server = http.createServer(requestListener);
+export const createServer = () : Server => http.createServer(requestListener);
 
-export const initializeServer = (port: number) : Promise<AddressInfo> => {
+export const initializeServer = (server: Server, port: number) : Promise<AddressInfo> => {
   if (!port) {
     throw new Error("Please, provide a valid port.");
   }

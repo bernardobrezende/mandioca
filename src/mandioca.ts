@@ -1,6 +1,6 @@
 import { AddressInfo } from 'net';
 import { registerRoute, RouteHandler } from './router';
-import { initializeServer } from './server';
+import { createServer, initializeServer } from './server';
 
 const mandioca = {
   get: function(path: string, routeImpl: RouteHandler) : void {
@@ -9,7 +9,7 @@ const mandioca = {
   post: function(path: string, routeImpl: RouteHandler) : void {
     registerRoute(path, routeImpl);
   },
-  serve: (port: number) : Promise<AddressInfo> => initializeServer(port)
+  serve: (port: number) : Promise<AddressInfo> => initializeServer(createServer(), port)
 };
 
 export default mandioca;
