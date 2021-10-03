@@ -2,7 +2,7 @@ import http, { IncomingMessage, Server, ServerResponse } from 'http';
 import { AddressInfo } from 'net';
 import url from 'url';
 
-import { notFound, ok, HttpRequest, created } from './http';
+import { notFound, ok, HttpRequest, created, internalServerError } from './http';
 import { routeExists, routeHandler } from './router';
 import { SearchParams, removeQueryParams } from './url';
 
@@ -31,13 +31,17 @@ const readRequestBodyAsync = (req: IncomingMessage) : Promise<JSON> => {
 }
 
 const requestListener = async (req: IncomingMessage, res: ServerResponse) => {
-  const { url, socket, headers } = req;
+  const { url } = req;
   const sanitizedUrl = removeQueryParams(url!);
-
   if (routeExists(sanitizedUrl)) {
     const handler = routeHandler(sanitizedUrl);
     const request : HttpRequest = await createRequest(req);
-    const routeResponse = handler(request);
+    let routeResponse;
+    try {
+      routeResponse = handler(request);
+    } catch (internalErr) {
+      internalServerError(res, internalErr as Error);
+    }
     if (req.method === "POST") {
       created(res, routeResponse);
     } else {
@@ -52,15 +56,23 @@ export const createServer = () : Server => http.createServer(requestListener);
 
 export const initializeServer = (server: Server, port: number) : Promise<AddressInfo> => {
   if (!port) {
-    throw new Error("Please, provide a valid port.");
+    throw new Error('Please, provide a valid port.');
   }
   return new Promise<AddressInfo>((resolve, reject) => {
-    server.listen(port, () => {
-      resolve(server.address() as AddressInfo);
-    });
-    server.once('error', err => {
-      // TODO: throw specific initialization error and write a test
+    try {
+      server.listen(port, () => {
+        resolve(server.address() as AddressInfo);
+      });
+    } catch (err) {
+      console.error((err as Error).stack);
       reject(err);
-    });
+    }
   });
 }
+
+process
+  .on('uncaughtException', err => {
+    // TODO: is it possible to simulate this scenario?
+    console.error(`Fatal error. Shuting down server...\n`, err.stack);
+    process.exit(1);
+  });

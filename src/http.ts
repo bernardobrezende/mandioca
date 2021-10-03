@@ -25,8 +25,14 @@ export function created(res: ServerResponse, data?: unknown) : void {
   writeJsonInsideResponse(res, 201, data);
 }
 
+export function internalServerError(res: ServerResponse, error : Error) : void {
+  console.error(error.stack);
+  res.writeHead(500);
+  res.end();
+}
+
 export type HttpRequest = {
   search: SearchParams,
   url?: string,
-  body?: JSON
+  body?: JSON // TODO: create own dynamic type
 };

@@ -19,11 +19,12 @@ mandioca.get(`/hello-world`, req => ({ hello: 'world' }));
 ### TODO
 
 1. tests
-2. routes params
-3. error handler
-4. logs by default
-5. health check by default
-6. lint
-7. remove ! e handle each case
-8. cors
-9. security headers (helmet)
+2. no return on route handler bug
+3. error handler / request on error / response on error
+4. routes params
+5. logs by default
+6. health check by default
+7. lint
+8. remove ! e handle each case
+9. cors
+10. security headers (helmet)
