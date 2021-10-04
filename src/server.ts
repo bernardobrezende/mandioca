@@ -69,10 +69,3 @@ export const initializeServer = (server: Server, port: number) : Promise<Address
     }
   });
 }
-
-process
-  .on('uncaughtException', err => {
-    // TODO: is it possible to simulate this scenario?
-    console.error(`Fatal error. Shuting down server...\n`, err.stack);
-    process.exit(1);
-  });
